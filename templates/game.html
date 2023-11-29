@@ -1,0 +1,34 @@
+{% extends 'base.html'%} {% block title %}Boggle Game{% endblock %} {% block
+content %}
+<div class="game">
+  <span class="board">
+    <table>
+      {% for row in session['board']%}
+      <tr>
+        {% for char in row %}
+        <td>{{char}}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </span>
+  <span class="found">
+    <table>
+      <thead>
+        <tr>
+          <th>Found Words</th>
+        </tr>
+      </thead>
+      {% for word in session['found'] %}
+      <tr>
+        <td>{{word}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </span>
+</div>
+<form action="/logic" method="POST">
+  <input type="text" name="guess" id="guess" />
+  <input type="submit" name="start" id="start" value="Search for Word" />
+</form>
+{% endblock %}
