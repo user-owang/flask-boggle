@@ -8,7 +8,11 @@
   <body>
     <nav><a href="/">Home</a></nav>
     {% for category, msg in get_flashed_messages(with_categories=true) %}
-    <section class="{{category}}">{{msg}}</section>
+    <section class="good hidden"></section>
+    <section class="bad hidden"></section>
     {% endfor %} {% block content %} {% endblock %}
+    <script src="http://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
+    {% block gamescript %}{% endblock %}
   </body>
 </html>

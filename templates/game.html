@@ -1,5 +1,10 @@
 {% extends 'base.html'%} {% block title %}Boggle Game{% endblock %} {% block
 content %}
+<h1>Boggle Game</h1>
+<h2 id="timer">60 seconds</h2>
+<div class="info">
+  <span id="score">0 Points</span> <span id="numGuess">0 Guesses</span>
+</div>
 <div class="game">
   <span class="board">
     <table>
@@ -13,22 +18,13 @@ content %}
     </table>
   </span>
   <span class="found">
-    <table>
-      <thead>
-        <tr>
-          <th>Found Words</th>
-        </tr>
-      </thead>
-      {% for word in session['found'] %}
-      <tr>
-        <td>{{word}}</td>
-      </tr>
-      {% endfor %}
-    </table>
+    <ul></ul>
   </span>
 </div>
-<form action="/logic" method="POST">
+<form action="" method="POST" id="form">
   <input type="text" name="guess" id="guess" />
   <input type="submit" name="start" id="start" value="Search for Word" />
 </form>
+{% endblock %} {% block gamescript %}
+<script src="/static/game.js"></script>
 {% endblock %}

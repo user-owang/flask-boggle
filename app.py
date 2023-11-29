@@ -25,24 +25,12 @@ def showGame():
   return render_template('game.html')
   
 
-@app.route('/logic', methods=['POST'])
+@app.route('/logic')
 def check_word():
   """check logic"""
-  guess = request.form['guess']
-    
-  if session['found'].count(guess) == 0:
-    validation_result = boggle_game.check_valid_word(session['board'], guess)
-        
-    if validation_result == 'ok':
-      found = session['found']
-      found.append(guess)
-      session['found'] = found
-      flash('Great guess!', 'good')
-    elif validation_result == 'not-on-board':
-      flash('That word is not found on the current game board!', 'bad')
-    elif validation_result == 'not-word':
-      flash('That guess is not a word!', 'bad')
-  else:
-    flash('You have already guessed that word!', 'bad')
-    
-  return redirect('/game')
+  
+  guess = request.args['guess']
+  board = session["board"]
+  response = boggle_game.check_valid_word(board, guess)
+  
+  return jsonify({'result': response})
