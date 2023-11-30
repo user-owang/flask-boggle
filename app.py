@@ -29,7 +29,7 @@ def showGame():
 def check_word():
   """check logic"""
   
-  guess = request.args['guess']
+  guess = request.args['word']
   board = session["board"]
   response = boggle_game.check_valid_word(board, guess)
   

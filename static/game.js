@@ -5,7 +5,7 @@ const notWord = "That's not a word!";
 const alreadyGuessed = "You already found that word!";
 
 //Dom elements
-const $found = $(".found ul");
+const $found = $("ul");
 const $good = $(".good");
 const $bad = $(".bad");
 const $form = $("#form");
@@ -39,15 +39,16 @@ class Timer {
     clearInterval(this.countdown);
     this.countdown = null;
   }
-  endGame() {
-    $text.val("");
-    $text.prop("disabled", true);
-    $submit.prop("disabled", true);
-    this.cancel();
-  }
 }
 
 const timer = new Timer(time);
+
+function endGame() {
+  $text.val("");
+  $text.prop("disabled", true);
+  $submit.prop("disabled", true);
+  timer.cancel();
+}
 
 //dom helper functions}
 function hideMsgs() {
@@ -59,15 +60,15 @@ function hideMsgs() {
 async function submitHandler(evt) {
   evt.preventDefault();
 
-  const guess = $("#guess").val();
+  const guess = $text.val();
 
   if (g === 0) {
     timer.start();
-    setTimeout(timer.endGame, time * 1000);
+    setTimeout(endGame, time * 1000);
   }
   hideMsgs();
 
-  if ($found.is(":contains(guess)")) {
+  if ($found.is(`:contains(${guess})`)) {
     $bad.html(`<p>${alreadyGuessed}</p>`);
     $bad.show();
     return $("#guess").val("");
@@ -76,11 +77,7 @@ async function submitHandler(evt) {
   g += 1;
   $numGuess.text(`${g} Guesses`);
 
-  const resp = await axios({
-    url: `/logic`,
-    method: "GET",
-    data: `${guess}`,
-  });
+  const resp = await axios.get("/logic", { params: { word: guess } });
 
   console.log("get sent");
   switch (resp.data.result) {
