@@ -77,7 +77,7 @@ async function submitHandler(evt) {
   g += 1;
   $numGuess.text(`${g} Guesses`);
 
-  const resp = await axios.get("/logic", params: { word: guess });
+  const resp = await axios.get("/logic", { params: { word: guess } });
 
   console.log("get sent");
   switch (resp.data.result) {
