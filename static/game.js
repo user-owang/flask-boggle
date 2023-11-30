@@ -49,11 +49,7 @@ class Timer {
 
 const timer = new Timer(time);
 
-//dom helper functions
-function update(jqueryElement, val) {
-  jqueryElement.clear();
-  jqueryElement.append(val);
-}
+//dom helper functions}
 function hideMsgs() {
   $good.hide();
   $bad.hide();
@@ -72,13 +68,13 @@ async function submitHandler(evt) {
   hideMsgs();
 
   if ($found.is(":contains(guess)")) {
-    update($bad, `<p>${alreadyGuessed}</p>`);
+    $bad.html(`<p>${alreadyGuessed}</p>`);
     $bad.show();
     return $("#guess").val("");
   }
 
   g += 1;
-  update($numGuess, `${g} Guesses`);
+  $numGuess.text(`${g} Guesses`);
 
   const resp = await axios({
     url: `/logic`,
@@ -89,19 +85,19 @@ async function submitHandler(evt) {
   console.log("get sent");
   switch (resp.data.result) {
     case "ok":
-      update($good, `<p>${okMsg}</p>`);
+      $good.html(`<p>${okMsg}</p>`);
       $good.show();
       $found.append(`<li>${guess}</li>`);
       score += guess.length;
-      update($score, `${score} Points`);
+      $score.text(`${score} Points`);
       $found.append(`<li>${guess}</li>`);
       return $("#guess").val("");
     case "not-on-board":
-      update($bad, `<p>${notBoard}</p>`);
+      $bad.html(`<p>${notBoard}</p>`);
       $bad.show();
       return $("#guess").val("");
     case "not-word":
-      update($bad, `<p>${notWord}</p>`);
+      $bad.html(`<p>${notWord}</p>`);
       $bad.show();
       return $("#guess").val("");
   }
