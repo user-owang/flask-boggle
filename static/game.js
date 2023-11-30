@@ -84,7 +84,6 @@ async function submitHandler(evt) {
     case "ok":
       $good.html(`<p>${okMsg}</p>`);
       $good.show();
-      $found.append(`<li>${guess}</li>`);
       score += guess.length;
       $score.text(`${score} Points`);
       $found.append(`<li>${guess}</li>`);
