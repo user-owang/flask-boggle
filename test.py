@@ -70,7 +70,7 @@ class FlaskTests(TestCase):
       with app.client.session_transaction() as change_session:
         change_session['high_scores'] = [1,2,3]
         change_session['gamesplayed'] = 4
-    res = client.post('/endgame', data={'score' = 23})
+    res = client.post('/endgame', data={'score': 23})
 
     self.assertEqual(session['high_scores'], [23,3,2])
     self.assertEqual(session['gamesplayed'], 5)
@@ -81,7 +81,7 @@ class FlaskTests(TestCase):
       with app.client.session_transaction() as change_session:
         change_session['high_scores'] = [100,200,300]
         change_session['gamesplayed'] = 4
-    res = client.post('/endgame', data={'score' = 23})
+    res = client.post('/endgame', data={'score': 23})
 
     self.assertEqual(session['high_scores'], [300,200,100])
     self.assertEqual(session['gamesplayed'], 5)
@@ -92,7 +92,7 @@ class FlaskTests(TestCase):
       with app.client.session_transaction() as change_session:
         change_session['high_scores'] = [100]
         change_session['gamesplayed'] = 1
-    res = client.post('/endgame', data={'score' = 23})
+    res = client.post('/endgame', data={'score': 23})
 
     self.assertEqual(session['high_scores'], [100,23])
     self.assertEqual(session['gamesplayed'], 2)
