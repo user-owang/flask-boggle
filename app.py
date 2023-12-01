@@ -41,12 +41,13 @@ def check_word():
 @app.route('/endgame', methods=['POST'])
 def end_game():
   """store last score and check for high score in sessions and store number of games played"""
+  print(request.json)
   last_score = request.json['score']
-  high_scores = session.['high_scores']
+  high_scores = session['high_scores']
   high_scores.append(last_score)
   high_scores.sort(reverse=True)
   if len(high_scores) > 3:
     high_scores.pop(-1)
   session['high_scores'] = high_scores
   session['gamesplayed'] += 1
-  return
+  return str(request.json)

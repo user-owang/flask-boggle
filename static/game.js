@@ -48,7 +48,7 @@ async function endGame() {
   $text.prop("disabled", true);
   $submit.prop("disabled", true);
   timer.cancel();
-  resp = await axios.post({ score: score });
+  resp = await axios.post("/endgame", { score: score });
 }
 
 //dom helper functions}
