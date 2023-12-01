@@ -9,6 +9,9 @@ app.config['SECRET_KEY'] = 'abcdefghijklmnopqrstuvwxyz'
 @app.route('/')
 def showHome():
   """shows home page with start button"""
+  if not session.get('gamesplayed'):
+    session['gamesplayed'] = 0
+    session['high_scores'] = []
   return render_template('home.html')
 
 @app.route('/start', methods=['POST'])
@@ -34,3 +37,16 @@ def check_word():
   response = boggle_game.check_valid_word(board, guess)
   
   return jsonify({'result': response})
+
+@app.route('/endgame', methods=['POST'])
+def end_game():
+  """store last score and check for high score in sessions and store number of games played"""
+  last_score = request.json['score']
+  high_scores = session.['high_scores']
+  high_scores.append(last_score)
+  high_scores.sort(reverse=True)
+  if len(high_scores) > 3:
+    high_scores.pop(-1)
+  session['high_scores'] = high_scores
+  session['gamesplayed'] += 1
+  return

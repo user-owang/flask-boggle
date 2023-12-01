@@ -4,4 +4,20 @@ content %}
 <form action="/start" method="POST">
   <input type="submit" name="start" id="start" value="Start" />
 </form>
+
+<div class="info">
+  <span class="highScores">
+    <h3>Top Scores</h3>
+    {% if session['high_scores'].__len__ > 0 %}
+    <ol>
+      {% for score in session['high_scores'] %}
+      <li>{{score}}</li>
+      {% endfor %}
+    </ol>
+    {% else %} --------------- {% endif %}
+  </span>
+  <span class="gamesplayed">
+    <h3>Games Played: {{session.get('gamesplayed')}}</h3>
+  </span>
+</div>
 {% endblock %}

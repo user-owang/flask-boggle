@@ -43,11 +43,12 @@ class Timer {
 
 const timer = new Timer(time);
 
-function endGame() {
+async function endGame() {
   $text.val("");
   $text.prop("disabled", true);
   $submit.prop("disabled", true);
   timer.cancel();
+  resp = await axios.post({ score: score });
 }
 
 //dom helper functions}
